@@ -45,7 +45,7 @@ router.post('/signup', function(req, res, next) {
     }).catch(function(error) {
         req.flash('error', error.message);
         res.redirect('/auth/signup');
-    })
+    });
 });
 
 router.get('/logout', function(req, res) {
@@ -53,6 +53,18 @@ router.get('/logout', function(req, res) {
     req.flash('success', 'You logged out.');
     res.redirect('/');
 });
+
+//Facebook Auth Section
+router.get('/facebook', passport.authenticate('facebook', {
+    scope: ['public_profile', 'email']
+}));
+
+router.get('/callback/facebook', passport.authenticate('facebook', {
+    successRedirect: '/profile',
+    successFlash: 'You are logged in !',
+    failureRedirect: '/auth/login',
+    failureFlash: 'Nice try, Facebook says no'
+}));
 
 //Export
 module.exports = router;

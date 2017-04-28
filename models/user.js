@@ -24,7 +24,9 @@ module.exports = function(sequelize, DataTypes) {
                     msg: 'No $pecial characters allowed, yo!'
                 }
             }
-        }
+        },
+        facebookId: DataTypes.STRING,
+        facebookToken: DataTypes.STRING
     }, {
         hooks: {
             beforeCreate: function(user, options, cb) {
